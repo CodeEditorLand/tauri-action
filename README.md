@@ -43,7 +43,7 @@ jobs:
 
     runs-on: ${{ matrix.platform }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.1.4
 
       - name: setup node
         uses: actions/setup-node@v4
