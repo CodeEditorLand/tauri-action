@@ -1,4 +1,12 @@
 {
+	"author": {
+		"email": "Land@PlayForm.Cloud",
+		"name": "🌆 — Land —",
+		"url": "HTTPS://Land.PlayForm.Cloud"
+	},
+	"bugs": {
+		"url": "HTTPS://GitHub.Com/CodeEditorLand/TauriAction/issues"
+	},
 	"contributors": [
 		"Tauri Programme within The Commons Conservancy"
 	],
@@ -14,13 +22,32 @@
 	},
 	"description": "Tauri GitHub Action",
 	"devDependencies": {
+		"@playform/build": "0.0.7",
+		"@playform/document": "0.0.6",
 		"@types/node": "20.12.7",
 		"@vercel/ncc": "0.38.1",
 		"covector": "0.10.2"
 	},
+	"homepage": "HTTPS://GitHub.Com/CodeEditorLand/TauriAction#readme",
+	"keywords": [
+		"land"
+	],
+	"license": "SEE LICENSE IN LICENSE",
 	"main": "dist/index.js",
 	"name": "tauri-action",
+	"private": false,
+	"publishConfig": {
+		"access": "public"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+HTTPS://github.com/CodeEditorLand/TauriAction.git"
+	},
 	"scripts": {
-		"build": "ncc build src/index.ts -o dist -m"
-	}
+		"Document": "Document 'Source/**/*.ts'",
+		"build": "ncc build src/index.ts -o dist -m",
+		"prepublishOnly": "Build 'Source/**/*.ts'"
+	},
+	"type": "module",
+	"version": "0.0.1"
 }
