@@ -19,7 +19,7 @@
 		"tslib": "2.6.2"
 	},
 	"devDependencies": {
-		"@types/node": "20.12.12",
+		"@types/node": "20.12.13",
 		"@vercel/ncc": "0.38.1",
 		"covector": "0.10.2"
 	}
