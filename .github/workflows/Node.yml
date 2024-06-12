@@ -61,7 +61,7 @@ jobs:
 
             - uses: pnpm/action-setup@v4.0.0
               with:
-                  version: 8.15.5
+                  version: 9.3.0
                   run_install: |
                       - recursive: true
                         args: [
@@ -73,6 +73,33 @@ jobs:
                           --strict-peer-dependencies=false,
                           --unsafe-perm=true
                         ]
+
+            - uses: actions/setup-node@v4.0.2
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: "pnpm"
+                  cache-dependency-path: ./__fixtures__/example-v1/pnpm-lock.yaml
+
+            - run: pnpm install
+              working-directory: ./__fixtures__/example-v1
+
+            - uses: actions/setup-node@v4.0.2
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: "pnpm"
+                  cache-dependency-path: ./__fixtures__/example-v2/pnpm-lock.yaml
+
+            - run: pnpm install
+              working-directory: ./__fixtures__/example-v2
+
+            - uses: actions/setup-node@v4.0.2
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: "pnpm"
+                  cache-dependency-path: ./__fixtures__/example-with-tauri-v2/pnpm-lock.yaml
+
+            - run: pnpm install
+              working-directory: ./__fixtures__/example-with-tauri-v2
 
             - uses: actions/setup-node@v4.0.2
               with:

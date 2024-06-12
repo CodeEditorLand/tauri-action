@@ -8,6 +8,42 @@ updates:
           interval: "daily"
 
     - package-ecosystem: "npm"
+      directory: "/__fixtures__/example-v1"
+      schedule:
+          interval: "daily"
+      versioning-strategy: increase
+
+    - package-ecosystem: "npm"
+      directory: "/__fixtures__/example-v2"
+      schedule:
+          interval: "daily"
+      versioning-strategy: increase
+
+    - package-ecosystem: "npm"
+      directory: "/__fixtures__/example-with-tauri-v1"
+      schedule:
+          interval: "daily"
+      versioning-strategy: increase
+
+    - package-ecosystem: "cargo"
+      directory: "/__fixtures__/example-with-tauri-v1/src-tauri"
+      schedule:
+          interval: "daily"
+      versioning-strategy: lockfile-only
+
+    - package-ecosystem: "npm"
+      directory: "/__fixtures__/example-with-tauri-v2"
+      schedule:
+          interval: "daily"
+      versioning-strategy: increase
+
+    - package-ecosystem: "cargo"
+      directory: "/__fixtures__/example-with-tauri-v2/src-tauri"
+      schedule:
+          interval: "daily"
+      versioning-strategy: lockfile-only
+
+    - package-ecosystem: "npm"
       directory: "/__fixtures__/example-with-tauri"
       schedule:
           interval: "daily"
