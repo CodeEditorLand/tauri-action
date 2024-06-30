@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from 'node:fs';
 
 import { getOctokit } from '@actions/github';
 
@@ -38,7 +38,12 @@ export async function uploadAssets(
     const assetName = getAssetName(asset.path);
 
     const existingAsset = existingAssets.find(
-      (a) => a.name === assetName.trim().replace(/ /g, '.'),
+      (a) =>
+        a.name ===
+        assetName
+          .trim()
+          .replace(/[ ()[\]{}]/g, '.')
+          .replace(/\.\./g, '.'),
     );
     if (existingAsset) {
       console.log(`Deleting existing ${assetName}...`);
