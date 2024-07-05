@@ -1,5 +1,13 @@
 # Changelog
 
+## \[0.5.9]
+
+- [`ff07d2a`](https://www.github.com/tauri-apps/tauri-action/commit/ff07d2a6ce69514dddf7cde3ba0b866dad1e07e0) ([#849](https://www.github.com/tauri-apps/tauri-action/pull/849) by [@FabianLars](https://www.github.com/tauri-apps/tauri-action/../../FabianLars)) Fixed an issue that caused the action to fail to upload some assets to existing releases if the workflow built the app for many architectures and debug + release mode.
+
+## \[0.5.8]
+
+- [`621de48`](https://www.github.com/tauri-apps/tauri-action/commit/621de481ebf76558785277c9654f3befeaf0bd35) ([#845](https://www.github.com/tauri-apps/tauri-action/pull/845) by [@Legend-Master](https://www.github.com/tauri-apps/tauri-action/../../Legend-Master)) Fix can't find updater file name with spaces in them and can't pick up unzipped updater signatures
+
 ## \[0.5.7]
 
 - [`f8044a1`](https://www.github.com/tauri-apps/tauri-action/commit/f8044a1d9fa468d71dd285d9f17b467dc8c9b334) ([#837](https://www.github.com/tauri-apps/tauri-action/pull/837) by [@FabianLars](https://www.github.com/tauri-apps/tauri-action/../../FabianLars)) Fixed an issue that caused the action to be unable to pick up the app bundles if the `productName` contained any of these characters: `()[]{}`.
