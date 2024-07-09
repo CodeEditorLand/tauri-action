@@ -1,5 +1,5 @@
-import { existsSync, readFileSync } from 'node:fs';
-import path, { join, normalize, resolve, sep } from 'node:path';
+import { existsSync, readFileSync } from 'fs';
+import path, { join, normalize, resolve, sep } from 'path';
 
 import { execa } from 'execa';
 import { parse as parseToml } from '@iarna/toml';
