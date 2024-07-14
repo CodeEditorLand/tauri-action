@@ -1,5 +1,5 @@
-import { readFileSync, writeFileSync } from 'fs';
-import { basename, extname, resolve } from 'path';
+import { readFileSync, writeFileSync } from 'node:fs';
+import { basename, extname, resolve } from 'node:path';
 
 import { getOctokit } from '@actions/github';
 
