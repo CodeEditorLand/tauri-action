@@ -1,6 +1,6 @@
 {
-	"name": "example-with-tauri",
 	"description": "",
 	"main": "index.js",
+	"name": "example-with-tauri",
 	"scripts": {}
 }
