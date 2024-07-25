@@ -1,9 +1,0 @@
-{
-	"name": "example",
-	"description": "",
-	"main": "index.js",
-	"scripts": {},
-	"dependencies": {
-		"@tauri-apps/cli": "next"
-	}
-}
