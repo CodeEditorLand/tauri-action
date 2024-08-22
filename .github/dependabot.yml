@@ -1,0 +1,32 @@
+version: 2
+enable-beta-ecosystems: true
+
+updates:
+    - package-ecosystem: "github-actions"
+      directory: "/"
+      schedule:
+          interval: "daily"
+
+    - package-ecosystem: "cargo"
+      directory: "/__fixtures__/example-with-tauri-v1/src-tauri"
+      schedule:
+          interval: "daily"
+      versioning-strategy: lockfile-only
+
+    - package-ecosystem: "cargo"
+      directory: "/__fixtures__/example-with-tauri-v2/src-tauri"
+      schedule:
+          interval: "daily"
+      versioning-strategy: lockfile-only
+
+    - package-ecosystem: "cargo"
+      directory: "/__fixtures__/example-with-tauri/src-tauri"
+      schedule:
+          interval: "daily"
+      versioning-strategy: lockfile-only
+
+    - package-ecosystem: "npm"
+      directory: "/"
+      schedule:
+          interval: "daily"
+      versioning-strategy: increase
