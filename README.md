@@ -7,7 +7,7 @@ If your project doesn't include a Tauri project, the action can initialize it
 for you, so if you don't need to use Tauri's API, you can just ship native apps
 through this Action without making changes to your web app.
 
-## Usage
+## 🛠️ Usage
 
 **_For more workflow examples, check out the [examples](examples) directory._**
 
