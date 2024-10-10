@@ -1,13 +1,7 @@
 {
-	"name": "tauri-action",
-	"description": "Tauri GitHub Action",
 	"contributors": [
 		"Tauri Programme within The Commons Conservancy"
 	],
-	"main": "dist/index.js",
-	"scripts": {
-		"build": "ncc build src/index.ts -o dist -m"
-	},
 	"dependencies": {
 		"@actions/core": "1.11.1",
 		"@actions/github": "6.0.0",
@@ -18,9 +12,15 @@
 		"string-argv": "0.3.2",
 		"tslib": "2.7.0"
 	},
+	"description": "Tauri GitHub Action",
 	"devDependencies": {
 		"@types/node": "22.7.5",
 		"@vercel/ncc": "0.38.2",
 		"covector": "0.12.3"
+	},
+	"main": "dist/index.js",
+	"name": "tauri-action",
+	"scripts": {
+		"build": "ncc build src/index.ts -o dist -m"
 	}
 }
