@@ -6,7 +6,7 @@
 		"@actions/core": "1.11.1",
 		"@actions/github": "6.0.0",
 		"@iarna/toml": "2.2.5",
-		"execa": "9.5.0",
+		"execa": "9.5.1",
 		"globby": "14.0.2",
 		"json5": "2.2.3",
 		"string-argv": "0.3.2",
@@ -14,7 +14,7 @@
 	},
 	"description": "Tauri GitHub Action",
 	"devDependencies": {
-		"@types/node": "22.8.1",
+		"@types/node": "22.8.2",
 		"@vercel/ncc": "0.38.2",
 		"covector": "0.12.3"
 	},
