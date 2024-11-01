@@ -10,7 +10,7 @@
 		"globby": "14.0.2",
 		"json5": "2.2.3",
 		"string-argv": "0.3.2",
-		"tslib": "2.8.0"
+		"tslib": "2.8.1"
 	},
 	"description": "Tauri GitHub Action",
 	"devDependencies": {
