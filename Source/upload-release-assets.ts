@@ -47,6 +47,7 @@ export async function uploadAssets(
           .normalize('NFD')
           .replace(/[\u0300-\u036f]/g, ''),
     );
+
     if (existingAsset) {
       console.log(`Deleting existing ${assetName}...`);
       await github.rest.repos.deleteReleaseAsset({

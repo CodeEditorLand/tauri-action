@@ -11,6 +11,7 @@ function _tryParseJsonConfig(
 ): TauriConfigV1 | TauriConfigV2 | null {
   try {
     const config = JSON.parse(contents) as TauriConfigV1 | TauriConfigV2;
+
     return config;
   } catch (e) {
     // @ts-expect-error Catching errors in typescript is a headache
@@ -19,6 +20,7 @@ function _tryParseJsonConfig(
     console.error(
       `Couldn't parse --config flag as inline JSON. This is not an error if it's a file path. Source: "${msg}"`,
     );
+
     return null;
   }
 }
@@ -28,6 +30,7 @@ function _tryParseJson5Config(
 ): TauriConfigV1 | TauriConfigV2 | null {
   try {
     const config = JSON5.parse<TauriConfigV1 | TauriConfigV2>(contents);
+
     return config;
   } catch (e) {
     // @ts-expect-error Catching errors in typescript is a headache
@@ -36,6 +39,7 @@ function _tryParseJson5Config(
     console.error(
       `Couldn't parse --config flag as inline JSON. This is not an error if it's a file path. Source: "${msg}"`,
     );
+
     return null;
   }
 }
@@ -45,6 +49,7 @@ function _tryParseTomlConfig(
 ): TauriConfigV1 | TauriConfigV2 | null {
   try {
     const config = parseToml(contents) as TauriConfigV1 | TauriConfigV2;
+
     return config;
   } catch (e) {
     // @ts-expect-error Catching errors in typescript is a headache
@@ -53,6 +58,7 @@ function _tryParseTomlConfig(
     console.error(
       `Couldn't parse --config flag as inline JSON. This is not an error if it's a file path. Source: "${msg}"`,
     );
+
     return null;
   }
 }
@@ -64,21 +70,27 @@ function readPlatformConfig(
   let path = join(tauriDir, `tauri.${platform}.conf.json`);
   if (existsSync(path)) {
     const contents = readFileSync(path).toString();
+
     const config = _tryParseJsonConfig(contents);
+
     if (config) return config;
   }
 
   path = join(tauriDir, `tauri.${platform}.conf.json5`);
   if (existsSync(path)) {
     const contents = readFileSync(path).toString();
+
     const config = _tryParseJson5Config(contents);
+
     if (config) return config;
   }
 
   path = join(tauriDir, `Tauri.${platform}.toml`);
   if (existsSync(path)) {
     const contents = readFileSync(path).toString();
+
     const config = _tryParseTomlConfig(contents);
+
     if (config) return config;
   }
 
@@ -95,16 +107,19 @@ function readCustomConfig(customPath: string): TauriConfigV1 | TauriConfigV2 {
 
   if (ext === '.json') {
     const config = _tryParseJsonConfig(contents);
+
     if (config) return config;
   }
 
   if (ext === '.json5') {
     const config = _tryParseJson5Config(contents);
+
     if (config) return config;
   }
 
   if (ext === '.toml') {
     const config = _tryParseTomlConfig(contents);
+
     if (config) return config;
   }
 
@@ -283,7 +298,9 @@ export class TauriConfig {
   /// and therefore only handles plain JSON while assuming it's a valid file straight from `tauri init`.
   public updateConfigFile(tauriDir: string) {
     const configPath = join(tauriDir, 'tauri.conf.json');
+
     const contents = readFileSync(configPath).toString();
+
     const config = _tryParseJsonConfig(contents);
 
     if (!config) {

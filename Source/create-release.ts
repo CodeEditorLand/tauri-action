@@ -67,6 +67,7 @@ export async function createRelease(
         const releaseWithTag = response.data.find(
           (release) => release.tag_name === tagName,
         );
+
         if (releaseWithTag) {
           release = releaseWithTag;
           console.log(

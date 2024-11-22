@@ -19,28 +19,47 @@ async function run(): Promise<void> {
       process.cwd(),
       core.getInput('projectPath') || process.argv[2],
     );
+
     const distPath = core.getInput('distPath');
+
     const iconPath = core.getInput('iconPath');
+
     const appName = core.getInput('appName');
+
     const appVersion = core.getInput('appVersion');
+
     const includeRelease = core.getBooleanInput('includeRelease');
+
     const includeDebug = core.getBooleanInput('includeDebug');
+
     const includeUpdaterJson = core.getBooleanInput('includeUpdaterJson');
+
     const updaterJsonKeepUniversal = core.getBooleanInput(
       'updaterJsonKeepUniversal',
     );
+
     const tauriScript = core.getInput('tauriScript');
+
     const args = stringArgv(core.getInput('args'));
+
     const bundleIdentifier = core.getInput('bundleIdentifier');
 
     let tagName = core.getInput('tagName').replace('refs/tags/', '');
+
     let releaseId = Number(core.getInput('releaseId'));
+
     let releaseName = core.getInput('releaseName').replace('refs/tags/', '');
+
     let body = core.getInput('releaseBody');
+
     const owner = core.getInput('owner') || context.repo.owner;
+
     const repo = core.getInput('repo') || context.repo.repo;
+
     const draft = core.getBooleanInput('releaseDraft');
+
     const prerelease = core.getBooleanInput('prerelease');
+
     const commitish = core.getInput('releaseCommitish') || null;
 
     // TODO: Change its default to true for v2 apps
@@ -62,6 +81,7 @@ async function run(): Promise<void> {
       tauriScript,
       args,
     };
+
     const initOptions: InitOptions = {
       distPath,
       iconPath,
@@ -73,17 +93,21 @@ async function run(): Promise<void> {
     const targetArgIdx = [...args].findIndex(
       (e) => e === '-t' || e === '--target',
     );
+
     const targetPath =
       targetArgIdx >= 0 ? [...args][targetArgIdx + 1] : undefined;
 
     const configArgIdx = [...args].findIndex(
       (e) => e === '-c' || e === '--config',
     );
+
     const configArg =
       configArgIdx >= 0 ? [...args][configArgIdx + 1] : undefined;
 
     const releaseArtifacts: Artifact[] = [];
+
     const debugArtifacts: Artifact[] = [];
+
     if (includeRelease) {
       releaseArtifacts.push(
         ...(await buildProject(projectPath, false, buildOptions, initOptions)),
@@ -103,6 +127,7 @@ async function run(): Promise<void> {
         console.log(
           'No artifacts were found. The action was not configured to upload artifacts, therefore this is not handled as an error.',
         );
+
         return;
       }
     }
@@ -114,6 +139,7 @@ async function run(): Promise<void> {
     );
 
     const targetInfo = getTargetInfo(targetPath);
+
     const info = getInfo(projectPath, targetInfo, configArg);
     core.setOutput('appVersion', info.version);
 

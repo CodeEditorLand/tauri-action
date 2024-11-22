@@ -112,6 +112,7 @@ export async function buildProject(
     // If multiple Wix languages are specified, multiple installers (.msi) will be made
     // The .zip and .sig are only generated for the first specified language
     let langs;
+
     if (typeof app.wixLanguage === 'string') {
       langs = [app.wixLanguage];
     } else if (Array.isArray(app.wixLanguage)) {
@@ -174,6 +175,7 @@ export async function buildProject(
             : arch === 'aarch64'
               ? 'arm64'
               : arch;
+
     const rpmArch =
       arch === 'x64' || arch === 'x86_64'
         ? 'x86_64'
@@ -184,6 +186,7 @@ export async function buildProject(
             : arch === 'arm64'
               ? 'aarch64'
               : arch;
+
     const appImageArch =
       arch === 'x64' || arch === 'x86_64'
         ? 'amd64'

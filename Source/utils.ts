@@ -94,12 +94,14 @@ export function getWorkspaceDir(dir: string): string | null {
 
   while (dir.length && dir[dir.length - 1] !== sep) {
     const manifestPath = join(dir, 'Cargo.toml');
+
     if (existsSync(manifestPath)) {
       const toml = parseToml(readFileSync(manifestPath).toString()) as {
         workspace?: { members?: string[]; exclude?: string[] };
       };
       if (toml.workspace?.members) {
         const ignore = ['**/target', '**/node_modules'];
+
         if (toml.workspace.exclude) ignore.push(...toml.workspace.exclude);
 
         const memberPaths = globbySync(toml.workspace.members, {
@@ -143,6 +145,7 @@ export function getTargetDir(
 
   while (dir.length && dir[dir.length - 1] !== sep) {
     let cargoConfigPath = join(dir, '.cargo/config');
+
     if (!existsSync(cargoConfigPath)) {
       cargoConfigPath = join(dir, '.cargo/config.toml');
     }
@@ -153,6 +156,7 @@ export function getTargetDir(
 
       if (!targetDir && cargoConfig.build?.['target-dir']) {
         const t = cargoConfig.build['target-dir'];
+
         if (path.isAbsolute(t)) {
           targetDir = t;
         } else {
@@ -206,12 +210,14 @@ export function getCargoManifest(dir: string): CargoManifest {
     typeof cargoManifest.package.name == 'object'
   ) {
     const workspaceDir = getWorkspaceDir(dir);
+
     if (!workspaceDir) {
       throw new Error(
         'Could not find workspace directory, but version and/or name specifies to use workspace package',
       );
     }
     const manifestPath = join(workspaceDir, 'Cargo.toml');
+
     const workspaceManifest = parseToml(
       readFileSync(manifestPath).toString(),
     ) as unknown as CargoManifest;
@@ -287,9 +293,12 @@ export function getInfo(
   const tauriDir = getTauriDir(root);
   if (tauriDir !== null) {
     let name;
+
     let version;
+
     let wixLanguage: string | string[] | { [language: string]: unknown } =
       'en-US';
+
     let rpmRelease = '1';
 
     const config = TauriConfig.fromBaseConfig(tauriDir);

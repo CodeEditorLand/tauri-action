@@ -51,13 +51,17 @@ async function getRunner(
   if (tauriScript) {
     // FIXME: This will also split file paths with spaces.
     const [runnerCommand, ...runnerArgs] = tauriScript.split(' ');
+
     return new Runner(runnerCommand, runnerArgs);
   }
 
   if (hasDependency('@tauri-apps/cli', root)) {
     if (usesYarn(root)) return new Runner('yarn', ['tauri']);
+
     if (usesPnpm(root)) return new Runner('pnpm', ['tauri']);
+
     if (usesBun(root)) return new Runner('bun', ['tauri']);
+
     return new Runner('npm', ['run', 'tauri']);
   }
 
@@ -66,6 +70,7 @@ async function getRunner(
 
   try {
     const tauriDir = getTauriDir(root);
+
     if (tauriDir) {
       const baseConf = TauriConfig.fromBaseConfig(tauriDir);
 

@@ -106,7 +106,9 @@ export async function uploadVersionJSON({
       .replace(/\.\./g, '.')
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '');
+
     const downloadUrl = downloadUrls.get(assetName);
+
     if (downloadUrl) {
       filteredAssets.push({
         downloadUrl,
@@ -128,6 +130,7 @@ export async function uploadVersionJSON({
       : unzippedSig
         ? ['.msi.sig', '.exe.sig']
         : ['.msi.zip.sig', '.nsis.zip.sig'];
+
     for (const [index, extension] of priorities.entries()) {
       if (signaturePath.endsWith(extension)) {
         return 100 - index;
@@ -143,6 +146,7 @@ export async function uploadVersionJSON({
     console.warn(
       'Signature not found for the updater JSON. Skipping upload...',
     );
+
     return;
   }
 
@@ -155,6 +159,7 @@ export async function uploadVersionJSON({
   )?.downloadUrl;
   if (!downloadUrl) {
     console.warn('Asset not found for the updater JSON. Skipping upload...');
+
     return;
   }
   // Untagged release downloads won't work after the release was published
