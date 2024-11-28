@@ -47,6 +47,7 @@ export interface Info {
 }
 
 export type TargetPlatform = "android" | "ios" | "macos" | "linux" | "windows";
+
 export interface TargetInfo {
 	arch: string;
 	platform: TargetPlatform;
