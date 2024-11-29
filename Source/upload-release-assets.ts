@@ -49,6 +49,7 @@ export async function uploadAssets(
 
 		if (existingAsset) {
 			console.log(`Deleting existing ${assetName}...`);
+
 			await github.rest.repos.deleteReleaseAsset({
 				owner: owner,
 				repo: repo,

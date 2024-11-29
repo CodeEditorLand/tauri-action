@@ -118,6 +118,7 @@ async function run(): Promise<void> {
 				)),
 			);
 		}
+
 		if (includeDebug) {
 			debugArtifacts.push(
 				...(await buildProject(
@@ -128,6 +129,7 @@ async function run(): Promise<void> {
 				)),
 			);
 		}
+
 		const artifacts = releaseArtifacts.concat(debugArtifacts);
 
 		if (artifacts.length === 0) {
@@ -145,6 +147,7 @@ async function run(): Promise<void> {
 		console.log(
 			`Found artifacts:\n${artifacts.map((a) => a.path).join("\n")}`,
 		);
+
 		core.setOutput(
 			"artifactPaths",
 			JSON.stringify(artifacts.map((a) => a.path)),
@@ -153,11 +156,13 @@ async function run(): Promise<void> {
 		const targetInfo = getTargetInfo(targetPath);
 
 		const info = getInfo(projectPath, targetInfo, configArg);
+
 		core.setOutput("appVersion", info.version);
 
 		// Other steps may benfit from this so we do this whether or not we want to upload it.
 		if (targetInfo.platform === "macos") {
 			let i = 0;
+
 			for (const artifact of artifacts) {
 				// updater provide a .tar.gz, this will prevent duplicate and overwriting of
 				// signed archive
@@ -176,11 +181,13 @@ async function run(): Promise<void> {
 						dirname(artifact.path),
 						basename(artifact.path),
 					]);
+
 					artifact.path += ".tar.gz";
 				} else if (artifact.path.endsWith(".app")) {
 					// we can't upload a directory
 					artifacts.splice(i, 1);
 				}
+
 				i++;
 			}
 		}
@@ -195,8 +202,11 @@ async function run(): Promise<void> {
 
 			templates.forEach((template) => {
 				const regex = new RegExp(template.key, "g");
+
 				tagName = tagName.replace(regex, template.value);
+
 				releaseName = releaseName.replace(regex, template.value);
+
 				body = body.replace(regex, template.value);
 			});
 
@@ -210,9 +220,13 @@ async function run(): Promise<void> {
 				draft,
 				prerelease,
 			);
+
 			releaseId = releaseData.id;
+
 			core.setOutput("releaseUploadUrl", releaseData.uploadUrl);
+
 			core.setOutput("releaseId", releaseData.id.toString());
+
 			core.setOutput("releaseHtmlUrl", releaseData.htmlUrl);
 		}
 

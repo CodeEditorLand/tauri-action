@@ -37,11 +37,15 @@ export const extensions = [
 /*** helper functions ***/
 export function getAssetName(assetPath: string) {
 	const basename = path.basename(assetPath);
+
 	const exts = extensions.filter((s) => basename.includes(s));
+
 	const ext = exts[0] || path.extname(assetPath);
+
 	const filename = basename.replace(ext, "");
 
 	let arch = "";
+
 	if (ext === ".app.tar.gz.sig" || ext === ".app.tar.gz") {
 		if (assetPath.includes("universal-apple-darwin")) {
 			arch = "_universal";
@@ -61,11 +65,13 @@ export function getAssetName(assetPath: string) {
 
 export function getPackageJson(root: string) {
 	const packageJsonPath = join(root, "package.json");
+
 	if (existsSync(packageJsonPath)) {
 		const packageJsonString = readFileSync(packageJsonPath).toString();
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 		return JSON.parse(packageJsonString);
 	}
+
 	return null;
 }
 
@@ -97,6 +103,7 @@ export function getWorkspaceDir(dir: string): string | null {
 			const toml = parseToml(readFileSync(manifestPath).toString()) as {
 				workspace?: { members?: string[]; exclude?: string[] };
 			};
+
 			if (toml.workspace?.members) {
 				const ignore = ["**/target", "**/node_modules"];
 
@@ -118,6 +125,7 @@ export function getWorkspaceDir(dir: string): string | null {
 
 		dir = normalize(join(dir, ".."));
 	}
+
 	return null;
 }
 
@@ -148,6 +156,7 @@ export function getTargetDir(
 		if (!existsSync(cargoConfigPath)) {
 			cargoConfigPath = join(dir, ".cargo/config.toml");
 		}
+
 		if (existsSync(cargoConfigPath)) {
 			const cargoConfig = parseToml(
 				readFileSync(cargoConfigPath).toString(),
@@ -191,16 +200,19 @@ export function getTargetDir(
 
 export function getCargoManifest(dir: string): CargoManifest {
 	const manifestPath = join(dir, "Cargo.toml");
+
 	const cargoManifest = parseToml(
 		readFileSync(manifestPath).toString(),
 	) as unknown as CargoManifest & {
 		package: {
 			version: { workspace: true } | string;
+
 			name: { workspace: true } | string;
 		};
 	};
 
 	let name = cargoManifest.package.name;
+
 	let version = cargoManifest.package.version;
 
 	// if the version or name is an object, it means it is a workspace package and we need to traverse up
@@ -215,6 +227,7 @@ export function getCargoManifest(dir: string): CargoManifest {
 				"Could not find workspace directory, but version and/or name specifies to use workspace package",
 			);
 		}
+
 		const manifestPath = join(workspaceDir, "Cargo.toml");
 
 		const workspaceManifest = parseToml(
@@ -227,6 +240,7 @@ export function getCargoManifest(dir: string): CargoManifest {
 		) {
 			name = workspaceManifest.workspace.package.name;
 		}
+
 		if (
 			typeof version === "object" &&
 			workspaceManifest?.workspace?.package?.version !== undefined
@@ -290,6 +304,7 @@ export function getInfo(
 	configFlag?: string,
 ): Info {
 	const tauriDir = getTauriDir(root);
+
 	if (tauriDir !== null) {
 		let name;
 
@@ -305,6 +320,7 @@ export function getInfo(
 		if (targetInfo) {
 			config.mergePlatformConfig(tauriDir, targetInfo.platform);
 		}
+
 		if (configFlag) {
 			config.mergeUserConfig(root, configFlag);
 		}
@@ -313,6 +329,7 @@ export function getInfo(
 
 		if (config.version?.endsWith(".json")) {
 			const packageJsonPath = join(tauriDir, config?.version);
+
 			const contents = readFileSync(packageJsonPath).toString();
 			// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 			version = JSON.parse(contents).version as string;
@@ -322,12 +339,15 @@ export function getInfo(
 
 		if (!(name && version)) {
 			const cargoManifest = getCargoManifest(tauriDir);
+
 			name = name ?? cargoManifest.package.name;
+
 			version = version ?? cargoManifest.package.version;
 		}
 
 		if (!(name && version)) {
 			console.error("Could not determine package name and version.");
+
 			process.exit(1);
 		}
 
@@ -358,6 +378,7 @@ export function getInfo(
 
 export function getTargetInfo(targetPath?: string): TargetInfo {
 	let arch: string = process.arch;
+
 	let platform: TargetPlatform =
 		process.platform === "win32"
 			? "windows"

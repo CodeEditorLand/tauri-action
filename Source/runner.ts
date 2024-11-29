@@ -16,6 +16,7 @@ class Runner {
 
 	constructor(bin: string, tauriScript?: string[]) {
 		this.bin = bin;
+
 		this.tauriScript = tauriScript || [];
 	}
 

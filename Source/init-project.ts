@@ -16,12 +16,14 @@ export async function initProject(
 
 	if (tauriPath === null) {
 		console.error("Failed to resolve Tauri path");
+
 		process.exit(1);
 	}
 
 	const config = TauriConfig.fromBaseConfig(tauriPath);
 
 	config.version = options.appVersion ?? undefined;
+
 	config.productName = options.appName ?? undefined;
 
 	if (options.bundleIdentifier) {
@@ -38,6 +40,7 @@ export async function initProject(
 	console.log(
 		`Updating tauri.conf.json file according to these configurations: ${JSON.stringify(config)}`,
 	);
+
 	config.updateConfigFile(tauriPath);
 
 	if (options.iconPath) {

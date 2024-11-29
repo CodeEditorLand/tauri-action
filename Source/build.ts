@@ -27,16 +27,19 @@ export async function buildProject(
 	const targetArgIdx = [...tauriArgs].findIndex(
 		(e) => e === "-t" || e === "--target",
 	);
+
 	const targetPath =
 		targetArgIdx >= 0 ? [...tauriArgs][targetArgIdx + 1] : undefined;
 
 	const configArgIdx = [...tauriArgs].findIndex(
 		(e) => e === "-c" || e === "--config",
 	);
+
 	const configArg =
 		configArgIdx >= 0 ? [...tauriArgs][configArgIdx + 1] : undefined;
 
 	const profileArgIdx = [...tauriArgs].findIndex((e) => e === "--profile");
+
 	const profile =
 		profileArgIdx >= 0 ? [...tauriArgs][profileArgIdx + 1] : undefined;
 
@@ -296,5 +299,6 @@ export async function buildProject(
 	console.log(
 		`Looking for artifacts in:\n${artifacts.map((a) => a.path).join("\n")}`,
 	);
+
 	return artifacts.filter((p) => existsSync(p.path));
 }

@@ -5,14 +5,19 @@ import type { GitHub } from "@actions/github/lib/utils";
 
 interface Release {
 	id: number;
+
 	uploadUrl: string;
+
 	htmlUrl: string;
 }
 
 interface GitHubRelease {
 	id: number;
+
 	upload_url: string;
+
 	html_url: string;
+
 	tag_name: string;
 }
 
@@ -22,6 +27,7 @@ function allReleases(
 	repo: string,
 ): AsyncIterableIterator<{ data: GitHubRelease[] }> {
 	const params = { per_page: 100, owner, repo };
+
 	return github.paginate.iterator(
 		github.rest.repos.listReleases.endpoint.merge(params),
 	);
@@ -45,7 +51,9 @@ export async function createRelease(
 	const github = getOctokit(process.env.GITHUB_TOKEN);
 
 	const bodyPath = core.getInput("body_path", { required: false });
+
 	let bodyFileContent: string | null = null;
+
 	if (bodyPath !== "" && !!bodyPath) {
 		try {
 			bodyFileContent = fs.readFileSync(bodyPath, { encoding: "utf8" });
@@ -57,11 +65,13 @@ export async function createRelease(
 	}
 
 	let release: GitHubRelease | null = null;
+
 	try {
 		// you can't get a an existing draft by tag
 		// so we must find one in the list of all releases
 		if (draft) {
 			console.log(`Looking for a draft release with tag ${tagName}...`);
+
 			for await (const response of allReleases(github, owner, repo)) {
 				const releaseWithTag = response.data.find(
 					(release) => release.tag_name === tagName,
@@ -69,12 +79,15 @@ export async function createRelease(
 
 				if (releaseWithTag) {
 					release = releaseWithTag;
+
 					console.log(
 						`Found draft release with tag ${tagName} on the release list.`,
 					);
+
 					break;
 				}
 			}
+
 			if (!release) {
 				throw new Error("release not found");
 			}
@@ -84,7 +97,9 @@ export async function createRelease(
 				repo,
 				tag: tagName,
 			});
+
 			release = foundRelease.data;
+
 			console.log(`Found release with tag ${tagName}.`);
 		}
 	} catch (error) {
@@ -93,6 +108,7 @@ export async function createRelease(
 			console.log(
 				`Couldn't find release with tag ${tagName}. Creating one.`,
 			);
+
 			const createdRelease = await github.rest.repos.createRelease({
 				owner,
 				repo,
@@ -110,6 +126,7 @@ export async function createRelease(
 				// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
 				`⚠️ Unexpected error fetching GitHub release for tag ${tagName}: ${error}`,
 			);
+
 			throw error;
 		}
 	}
