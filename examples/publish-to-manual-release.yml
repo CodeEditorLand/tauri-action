@@ -15,7 +15,7 @@ jobs:
       release_id: ${{ steps.create-release.outputs.result }}
 
     steps:
-      - uses: actions/setup-node@v4.1.0
+      - uses: actions/setup-node@v4.2.0
 
       - name: setup node
         uses: actions/setup-node@v4
@@ -60,7 +60,7 @@ jobs:
 
     runs-on: ${{ matrix.platform }}
     steps:
-      - uses: actions/setup-node@v4.1.0
+      - uses: actions/setup-node@v4.2.0
 
       - name: setup node
         uses: actions/setup-node@v4
